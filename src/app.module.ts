@@ -6,6 +6,8 @@ import { OrganizationUser } from './entity/organization-user.entity';
 import { Organization } from './entity/organization.entity';
 import { OrganizationModule } from './organization/organization.module';
 
+
+
 @Module({
   imports: [TypeOrmModule.forRoot({
     keepConnectionAlive: true,

@@ -14,16 +14,15 @@ enum Industry {
 }
 
 input OrganizationInput {
-  name: String!
-  industry: [Industry]
-  size: [OrganizationSize]
+  organizationName: String
+  industry: Industry
+  organizationSize: OrganizationSize
 }
 
 type Organization {
-    id: ID!
-  name: String
-  industry: [Industry]
-  size: [OrganizationSize]
+  organizationName: String
+  industry: Industry
+  organizationSize: OrganizationSize
 }
 
 input OrganizationUserInput {
@@ -37,6 +36,14 @@ type Query {
   getOrganizations: [Organization]
 }
 
+type Query{
+  getOrganizationByName(organizationName: String): Organization
+}
+
 type Mutation {
   createOrganization(input: OrganizationInput): Organization
+  updateOrganization(input: OrganizationInput): String
+  deleteOrganization(input: OrganizationInput): String
+  softDeleteOrganization(input: OrganizationInput): String
+  restoreOrganization(input: OrganizationInput): String
 }

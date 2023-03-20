@@ -24,9 +24,9 @@ export enum Industry {
 }
 
 export interface OrganizationInput {
-    name: string;
-    industry?: Nullable<Nullable<Industry>[]>;
-    size?: Nullable<Nullable<OrganizationSize>[]>;
+    organizationName?: Nullable<string>;
+    industry?: Nullable<Industry>;
+    organizationSize?: Nullable<OrganizationSize>;
 }
 
 export interface OrganizationUserInput {
@@ -37,18 +37,22 @@ export interface OrganizationUserInput {
 }
 
 export interface Organization {
-    id: string;
-    name?: Nullable<string>;
-    industry?: Nullable<Nullable<Industry>[]>;
-    size?: Nullable<Nullable<OrganizationSize>[]>;
+    organizationName?: Nullable<string>;
+    industry?: Nullable<Industry>;
+    organizationSize?: Nullable<OrganizationSize>;
 }
 
 export interface IQuery {
     getOrganizations(): Nullable<Nullable<Organization>[]> | Promise<Nullable<Nullable<Organization>[]>>;
+    getOrganizationByName(organizationName?: Nullable<string>): Nullable<Organization> | Promise<Nullable<Organization>>;
 }
 
 export interface IMutation {
     createOrganization(input?: Nullable<OrganizationInput>): Nullable<Organization> | Promise<Nullable<Organization>>;
+    updateOrganization(input?: Nullable<OrganizationInput>): Nullable<string> | Promise<Nullable<string>>;
+    deleteOrganization(input?: Nullable<OrganizationInput>): Nullable<string> | Promise<Nullable<string>>;
+    softDeleteOrganization(input?: Nullable<OrganizationInput>): Nullable<string> | Promise<Nullable<string>>;
+    restoreOrganization(input?: Nullable<OrganizationInput>): Nullable<string> | Promise<Nullable<string>>;
 }
 
 type Nullable<T> = T | null;

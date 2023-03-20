@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, DeleteDateColumn } from "typeorm";
 import { OrganizationUser } from "./organization-user.entity";
 
 @Entity()
@@ -15,7 +15,11 @@ export class Organization {
     @Column('varchar', { name:'organization_size', length: 100, })
     organizationSize?: string;
 
+    @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp' })
+    deletedAt?: Date;
+
     @OneToMany(() => OrganizationUser, 
     organizationUser => organizationUser.id)
     organizationUser: OrganizationUser[];
+  
 }
