@@ -12,12 +12,10 @@ export class OrganizationUser {
     @Column('varchar', { name:'last_name', length: 100, })
     lastName!: string
 
-    @Column('varchar', { name:'email', length: 100, })
+    @Column('varchar', { name:'email', length: 100, nullable: false, unique: true})
     email!: string;
 
     @Column('varchar', { name:'phone_number', length: 100, })
     phonenumber?: string;
 
-    @ManyToOne(type => Organization, organization => organization.id)
-    organization: Organization;
 }

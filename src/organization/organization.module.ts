@@ -6,8 +6,10 @@ import { Organization } from '../entity/organization.entity';
 import { OrganizationUser } from '../entity/organization-user.entity';
 import {  } from '../resolver/organization.resolver';
 import { join } from 'path';
-import { organizationService } from '../services/organization/organization.user.service';
+import { organizationService } from '../services/organization/organization.service';
 import { OrganizationResolver } from '../resolver/organization.resolver';
+import { OrganizationUserResolver } from 'src/resolver/organization.user.resolver';
+import { organizationUserService } from 'src/services/organizationUser/organization.user.service';
 
 @Module({
     imports: [
@@ -22,6 +24,6 @@ import { OrganizationResolver } from '../resolver/organization.resolver';
       TypeOrmModule.forFeature([Organization, OrganizationUser]),
     ],
     controllers: [],
-    providers: [OrganizationResolver,organizationService],
+    providers: [OrganizationResolver,organizationService, OrganizationUserResolver, organizationUserService],
 })
 export class OrganizationModule {}

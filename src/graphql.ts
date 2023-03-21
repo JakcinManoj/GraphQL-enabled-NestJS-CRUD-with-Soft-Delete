@@ -30,10 +30,10 @@ export interface OrganizationInput {
 }
 
 export interface OrganizationUserInput {
-    FirstName: string;
-    LastName: string;
-    Email: string;
-    Phone?: Nullable<string>;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phonenumber?: Nullable<string>;
 }
 
 export interface Organization {
@@ -42,9 +42,17 @@ export interface Organization {
     organizationSize?: Nullable<OrganizationSize>;
 }
 
+export interface OrganizationUser {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phonenumber?: Nullable<string>;
+}
+
 export interface IQuery {
     getOrganizations(): Nullable<Nullable<Organization>[]> | Promise<Nullable<Nullable<Organization>[]>>;
     getOrganizationByName(organizationName?: Nullable<string>): Nullable<Organization> | Promise<Nullable<Organization>>;
+    getOrganizationUsers(organizationName?: Nullable<string>): Nullable<Nullable<OrganizationUser>[]> | Promise<Nullable<Nullable<OrganizationUser>[]>>;
 }
 
 export interface IMutation {
@@ -53,6 +61,7 @@ export interface IMutation {
     deleteOrganization(input?: Nullable<OrganizationInput>): Nullable<string> | Promise<Nullable<string>>;
     softDeleteOrganization(input?: Nullable<OrganizationInput>): Nullable<string> | Promise<Nullable<string>>;
     restoreOrganization(input?: Nullable<OrganizationInput>): Nullable<string> | Promise<Nullable<string>>;
+    createOrganizationUser(input?: Nullable<OrganizationUserInput>): Nullable<OrganizationUser> | Promise<Nullable<OrganizationUser>>;
 }
 
 type Nullable<T> = T | null;

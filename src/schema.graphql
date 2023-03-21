@@ -26,17 +26,21 @@ type Organization {
 }
 
 input OrganizationUserInput {
-  FirstName: String!
-  LastName: String!
-  Email: String!
-  Phone: String
+  firstName: String!
+  lastName: String!
+  email: String!
+  phonenumber: String
 }
 
-type Query {
-  getOrganizations: [Organization]
+type OrganizationUser {
+  firstName: String!
+  lastName: String!
+  email: String!
+  phonenumber: String
 }
 
 type Query{
+  getOrganizations: [Organization]
   getOrganizationByName(organizationName: String): Organization
 }
 
@@ -46,4 +50,12 @@ type Mutation {
   deleteOrganization(input: OrganizationInput): String
   softDeleteOrganization(input: OrganizationInput): String
   restoreOrganization(input: OrganizationInput): String
+}
+
+type Query {
+  getOrganizationUsers(organizationName: String): [OrganizationUser]
+}
+
+type Mutation {
+  createOrganizationUser(input: OrganizationUserInput): OrganizationUser
 }

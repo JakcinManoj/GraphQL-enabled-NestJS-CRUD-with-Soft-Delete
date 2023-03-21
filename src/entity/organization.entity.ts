@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, DeleteDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, DeleteDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { OrganizationUser } from "./organization-user.entity";
 
 @Entity()
@@ -6,11 +6,11 @@ export class Organization {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column('varchar', { name:'organization_name', length: 100, })
+    @Column('varchar', { name:'organization_name', length: 100, unique: true })
     organizationName!: string;
 
     @Column('varchar', { name:'industry', length: 100, })
-    industry!: string
+    industry!: string;
 
     @Column('varchar', { name:'organization_size', length: 100, })
     organizationSize?: string;
@@ -18,7 +18,7 @@ export class Organization {
     @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp' })
     deletedAt?: Date;
 
-    @OneToMany(() => OrganizationUser, 
-    organizationUser => organizationUser.id)
-    organizationUser: OrganizationUser[];
+    @ManyToOne(() => OrganizationUser,{ onDelete: 'RESTRICT', nullable: true, eager: true })
+    @JoinColumn({ name: 'email', referencedColumnName: 'email' })
+    OrgUser: OrganizationUser;
 }

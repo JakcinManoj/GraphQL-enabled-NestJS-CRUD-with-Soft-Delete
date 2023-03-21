@@ -1,7 +1,7 @@
 import { Args, Query, Mutation, Resolver, Int } from '@nestjs/graphql';
 import { organizationType } from 'src/dto/organization';
 import { Organization } from 'src/entity/organization.entity';
-import { organizationService } from '../services/organization/organization.user.service';
+import { organizationService } from '../services/organization/organization.service';
 
 @Resolver('Organization')
 export class OrganizationResolver {
