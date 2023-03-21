@@ -21,5 +21,4 @@ export class Organization {
     @OneToMany(() => OrganizationUser, 
     organizationUser => organizationUser.id)
     organizationUser: OrganizationUser[];
-  
 }

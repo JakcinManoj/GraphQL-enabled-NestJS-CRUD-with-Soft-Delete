@@ -55,14 +55,15 @@ export class organizationService {
     return 'soft deleted sucessfully';
   }
 
-  async restoreOrg(input:organizationType): Promise<string> {
-    const restoreUser = await this.orgRepository.findOne({where: {organizationName :input.organizationName}});
-    if(!restoreUser){
-      return 'User not found';
+  async restoreOrg(input: organizationType): Promise<string> {
+    const restoreOrg = await this.orgRepository.restore({ organizationName: input.organizationName });
+    
+    if (!restoreOrg) {
+      return 'Organization not found';
     }
-    restoreUser.deletedAt = null;
-    await this.orgRepository.restore(restoreUser);
-    return 'restore sucessfully';
+    
+    return 'Organization restored successfully';
   }
+  
     
   }
