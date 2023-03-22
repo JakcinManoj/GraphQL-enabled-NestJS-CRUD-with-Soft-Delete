@@ -2,43 +2,58 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Organization } from 'src/entity/organization.entity';
-import { organizationType } from 'src/dto/organization';
-import { OrganizationUser } from 'src/entity/organization-user.entity';
+import { organizationType } from 'src/dto/organization.dto';
+import { user } from 'src/entity/user.entity';
 import { pick } from 'lodash';
+import { organizationUser } from 'src/entity/organization.user.entity';
 
 @Injectable()
 export class organizationService {
   constructor(
     @InjectRepository(Organization)
     public orgRepository: Repository<Organization>,
-    @InjectRepository(OrganizationUser)
-    public orgUserRepository: Repository<OrganizationUser>,
+    @InjectRepository(user)
+    public userRepository: Repository<user>,
+    @InjectRepository(organizationUser)
+    public orgUserRepository: Repository<organizationUser>,
   ) {}
 
   async getOrganization(): Promise<Organization[]> {
     return await this.orgRepository.find();
   }
 
-  async createOrg(input: organizationType): Promise<Organization> {
-    // check if orgUserRepository has email column
-    if (this.orgUserRepository.metadata.hasColumnWithPropertyPath('email')) {
-      //Get the realted row from orgUserRepository
-      const orgUser = await this.orgUserRepository.findOne({
+  async createOrg(input: organizationType): Promise<Organization | string> {
+    // check if userRepository has email column
+    if (this.userRepository.metadata.hasColumnWithPropertyPath('email')) {
+      //Get the realted row from userRepository
+      const orgUser = await this.userRepository.findOne({
         where: { email: input.email },
-      })
+      });
 
       console.log(orgUser);
-      
-      //Check if the email is already present in the orgUserRepository
-      
+
+      //Check if the email is already present in the userRepository
+
       const createUser = await this.orgRepository.save({
-        ...pick(input, ['organizationName', 'industry', 'organizationSize', 'email']),
+        ...pick(input, [
+          'organizationName',
+          'industry',
+          'organizationSize',
+          'email',
+        ]),
         organizationUser: orgUser,
       });
+
+      // const userOrganization = await this.orgUserRepository.save({
+      //   ...pick(input,['email','organizationName'])},
+      // }),
+      const userOrganization = await this.orgUserRepository.save({
+        organization: createUser,
+        user: orgUser,
+      })
       console.log(createUser);
       return createUser;
     }
-    
   }
 
   async updateOrg(input: organizationType): Promise<string> {

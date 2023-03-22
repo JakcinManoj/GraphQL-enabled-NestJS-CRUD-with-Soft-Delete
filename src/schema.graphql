@@ -25,17 +25,18 @@ type Organization {
   industry: Industry
   organizationSize: OrganizationSize
   email: String
-  organizationUser: OrganizationUser
+  organizationUser: User
+  
 }
 
-input OrganizationUserInput {
+input UserInput {
   firstName: String!
   lastName: String!
   email: String!
   phonenumber: String
 }
 
-type OrganizationUser {
+type User {
   firstName: String!
   lastName: String!
   email: String!
@@ -56,9 +57,9 @@ type Mutation {
 }
 
 type Query {
-  getOrganizationUsers(organizationName: String): [OrganizationUser]
+  getUsers(organizationName: String): [User]
 }
 
 type Mutation {
-  createOrganizationUser(input: OrganizationUserInput): OrganizationUser
+  createUser(input: UserInput): User
 }

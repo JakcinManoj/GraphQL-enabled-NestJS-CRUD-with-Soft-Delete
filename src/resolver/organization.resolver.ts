@@ -1,5 +1,5 @@
 import { Args, Query, Mutation, Resolver, Int } from '@nestjs/graphql';
-import { organizationType } from 'src/dto/organization';
+import { organizationType } from 'src/dto/organization.dto';
 import { Organization } from 'src/entity/organization.entity';
 import { organizationService } from '../services/organization/organization.service';
 
@@ -13,7 +13,7 @@ export class OrganizationResolver {
 
 
   @Mutation()
-  createOrganization(@Args('input') input: organizationType): Promise<Organization> {
+  createOrganization(@Args('input') input: organizationType): Promise<Organization | string> {
     return this.OrganizationService.createOrg(input);
   }
 

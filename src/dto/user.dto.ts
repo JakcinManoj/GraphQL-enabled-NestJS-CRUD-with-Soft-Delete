@@ -1,4 +1,4 @@
-export type organizationUserType = {
+export type userType = {
     firstName: string;
     lastName: string;
     email: string;

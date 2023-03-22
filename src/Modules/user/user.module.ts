@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrganizationUser } from 'src/entity/organization-user.entity';
+import { user } from 'src/entity/user.entity';
 import { join } from 'path';
-import { OrganizationUserResolver } from 'src/resolver/organization.user.resolver';
-import { organizationUserService } from 'src/services/organizationUser/organization.user.service';
+import { userResolver } from 'src/resolver/user.resolver';
+import { userService } from 'src/services/user/user.service';
 
 @Module({
   imports: [
@@ -17,9 +17,9 @@ import { organizationUserService } from 'src/services/organizationUser/organizat
         path: join(process.cwd(), 'src/graphql.ts'),
       },
     }),
-    TypeOrmModule.forFeature([OrganizationUser]),
+    TypeOrmModule.forFeature([user]),
   ],
   controllers: [],
-  providers: [OrganizationUserResolver, organizationUserService],
+  providers: [userResolver, userService],
 })
-export class OrganizationUserModule {}
+export class UserModule {}
