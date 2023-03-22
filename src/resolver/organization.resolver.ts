@@ -13,7 +13,7 @@ export class OrganizationResolver {
 
 
   @Mutation()
-  createOrganization(@Args('input') input: organizationType) {
+  createOrganization(@Args('input') input: organizationType): Promise<Organization> {
     return this.OrganizationService.createOrg(input);
   }
 

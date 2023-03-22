@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -24,6 +24,6 @@ import { organizationUserService } from 'src/services/organizationUser/organizat
       TypeOrmModule.forFeature([Organization, OrganizationUser]),
     ],
     controllers: [],
-    providers: [OrganizationResolver,organizationService, OrganizationUserResolver, organizationUserService],
+    providers: [OrganizationResolver,organizationService],
 })
 export class OrganizationModule {}

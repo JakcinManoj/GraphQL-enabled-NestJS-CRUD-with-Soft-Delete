@@ -15,10 +15,10 @@ export class Organization {
     @Column('varchar', { name:'organization_size', length: 100, })
     organizationSize?: string;
 
-    @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp' })
-    deletedAt?: Date;
-
     @ManyToOne(() => OrganizationUser,{ onDelete: 'RESTRICT', nullable: true, eager: true })
     @JoinColumn({ name: 'email', referencedColumnName: 'email' })
-    OrgUser: OrganizationUser;
+    email: OrganizationUser;
+
+    @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp' })
+    deletedAt?: Date; 
 }

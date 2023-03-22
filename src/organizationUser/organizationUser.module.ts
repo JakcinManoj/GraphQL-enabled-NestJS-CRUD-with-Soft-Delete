@@ -22,4 +22,4 @@ import { organizationUserService } from 'src/services/organizationUser/organizat
   controllers: [],
   providers: [OrganizationUserResolver, organizationUserService],
 })
-export class OrganizationModule {}
+export class OrganizationUserModule {}

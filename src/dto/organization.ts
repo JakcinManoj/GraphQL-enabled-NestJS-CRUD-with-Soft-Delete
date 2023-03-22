@@ -5,4 +5,5 @@ export type organizationType = {
     organizationName: string;
     industry: Industry;
     organizationSize: OrganizationSize;
+    email: string;
 }

@@ -17,12 +17,15 @@ input OrganizationInput {
   organizationName: String
   industry: Industry
   organizationSize: OrganizationSize
+  email: String
 }
 
 type Organization {
   organizationName: String
   industry: Industry
   organizationSize: OrganizationSize
+  email: String
+  organizationUser: OrganizationUser
 }
 
 input OrganizationUserInput {

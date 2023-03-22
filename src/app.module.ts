@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { OrganizationUser } from './entity/organization-user.entity';
 import { Organization } from './entity/organization.entity';
 import { OrganizationModule } from './organization/organization.module';
+import { OrganizationUserModule } from './organizationUser/organizationUser.module';
 
 
 
@@ -20,7 +21,7 @@ import { OrganizationModule } from './organization/organization.module';
     synchronize: true,
     logging: true,
     entities: [Organization, OrganizationUser],
-  }),OrganizationModule
+  }),OrganizationModule, OrganizationUserModule
 ],
   controllers: [],
   providers: [],

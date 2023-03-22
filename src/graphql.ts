@@ -27,6 +27,7 @@ export interface OrganizationInput {
     organizationName?: Nullable<string>;
     industry?: Nullable<Industry>;
     organizationSize?: Nullable<OrganizationSize>;
+    email?: Nullable<string>;
 }
 
 export interface OrganizationUserInput {
@@ -40,6 +41,8 @@ export interface Organization {
     organizationName?: Nullable<string>;
     industry?: Nullable<Industry>;
     organizationSize?: Nullable<OrganizationSize>;
+    email?: Nullable<string>;
+    organizationUser?: Nullable<OrganizationUser>;
 }
 
 export interface OrganizationUser {
