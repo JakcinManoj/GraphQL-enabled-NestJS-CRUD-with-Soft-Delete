@@ -8,16 +8,19 @@ import { OrganizationModule } from './Modules/organization/organization.module';
 import { UserModule } from './Modules/user/user.module';
 import { organizationUser } from './entity/organization.user.entity';
 import { organizationUserModule } from './Modules/organizationUser/organizationUser.module';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       keepConnectionAlive: true,
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'password',
-      database: 'postgres',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD ,
+      database: process.env.DB_DATABASE,
       synchronize: true,
       logging: true,
       entities: [Organization, user, organizationUser],
