@@ -23,16 +23,11 @@ export class organizationService {
   }
 
   async createOrg(input: organizationType): Promise<Organization | string> {
-    // check if userRepository has email column
+
     if (this.userRepository.metadata.hasColumnWithPropertyPath('email')) {
-      //Get the realted row from userRepository
       const orgUser = await this.userRepository.findOne({
         where: { email: input.email },
       });
-
-      console.log(orgUser);
-
-      //Check if the email is already present in the userRepository
 
       const createUser = await this.orgRepository.save({
         ...pick(input, [
@@ -44,14 +39,11 @@ export class organizationService {
         organizationUser: orgUser,
       });
 
-      // const userOrganization = await this.orgUserRepository.save({
-      //   ...pick(input,['email','organizationName'])},
-      // }),
       const userOrganization = await this.orgUserRepository.save({
         organization: createUser,
         user: orgUser,
-      })
-      console.log(createUser);
+      });
+
       return createUser;
     }
   }
@@ -60,12 +52,15 @@ export class organizationService {
     const updateUser = await this.orgRepository.findOne({
       where: { organizationName: input.organizationName },
     });
+
     if (!updateUser) {
       return 'User not found';
     }
+
     updateUser.industry = input.industry;
     updateUser.organizationSize = input.organizationSize;
     await this.orgRepository.save(updateUser);
+
     return 'updated sucessfully';
   }
 
@@ -73,10 +68,13 @@ export class organizationService {
     const deleteUser = await this.orgRepository.findOne({
       where: { organizationName: input.organizationName },
     });
+
     if (!deleteUser) {
       return 'User not found';
     }
+
     await this.orgRepository.remove(deleteUser);
+
     return 'deleted sucessfully';
   }
 
@@ -84,6 +82,7 @@ export class organizationService {
     const getOrgByName = await this.orgRepository.findOne({
       where: { organizationName },
     });
+
     return getOrgByName;
   }
 
@@ -91,11 +90,14 @@ export class organizationService {
     const softDeleteUser = await this.orgRepository.findOne({
       where: { organizationName: input.organizationName },
     });
+
     if (!softDeleteUser) {
       return 'User not found';
     }
+
     softDeleteUser.deletedAt = new Date();
     await this.orgRepository.save(softDeleteUser);
+    
     return 'soft deleted sucessfully';
   }
 

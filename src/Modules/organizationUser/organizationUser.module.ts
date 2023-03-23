@@ -4,6 +4,11 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { organizationUser } from 'src/entity/organization.user.entity';
+import { organizationUserService } from 'src/services/organizationUser/organizationUser.service';
+import { organizationUserResolver } from 'src/resolver/organizationUser.resolver';
+import { user } from 'src/entity/user.entity';
+import { Organization } from 'src/entity/organization.entity';
+
 
 
 @Module({
@@ -16,10 +21,10 @@ import { organizationUser } from 'src/entity/organization.user.entity';
                 path: join(process.cwd(), 'src/graphql.ts'),
             },
         }),
-        TypeOrmModule.forFeature([organizationUser]),
+        TypeOrmModule.forFeature([organizationUser, user, Organization]),
     ],
     controllers: [],
-    providers: [],
+    providers: [organizationUserResolver, organizationUserService],
 })
 
 export class organizationUserModule {}

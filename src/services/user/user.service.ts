@@ -8,16 +8,16 @@ import { userType } from 'src/dto/user.dto';
 export class userService {
   constructor(
     @InjectRepository(user)
-    public readonly orgUserRepository: Repository<user>,
+    public readonly userRepository: Repository<user>,
   ) {}
 
   async getUser(): Promise<user[]> {
-    return await this.orgUserRepository.find();
+    return await this.userRepository.find();
   }
 
   async createUser(input: userType): Promise<user> {
-    console.log(input);
-    const createUser = await this.orgUserRepository.save(input);
+    const createUser = await this.userRepository.save(input);
+    
     return createUser;
   }
 }
